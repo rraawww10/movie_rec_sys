@@ -3,25 +3,25 @@ import json
 from Classifier import KNearestNeighbours
 from operator import itemgetter
 
-# Load data and movies list from corresponding JSON files
+
 with open(r'data.json', 'r+', encoding='utf-8') as f:
     data = json.load(f)
 with open(r'titles.json', 'r+', encoding='utf-8') as f:
     movie_titles = json.load(f)
 
 def knn(test_point, k):
-    # Create dummy target variable for the KNN Classifier
+   
     target = [0 for item in movie_titles]
-    # Instantiate object for the Classifier
+   
     model = KNearestNeighbours(data, target, test_point, k=k)
-    # Run the algorithm
+   
     model.fit()
-    # Distances to most distant movie
+   
     max_dist = sorted(model.distances, key=itemgetter(0))[-1]
-    # Print list of 10 recommendations < Change value of k for a different number >
+    
     table = list()
     for i in model.indices:
-        # Returns back movie title and imdb link
+       
         table.append([movie_titles[i][0], movie_titles[i][2]])
     return table
 
